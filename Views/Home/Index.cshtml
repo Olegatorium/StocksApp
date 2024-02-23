@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+
+
+<div class="box trading-panel">
+
+    <div class="flex trading-panel-flex">
+
+        <div id="stock-price-panel">
+
+            <div class="stock">
+               <h2 class="stock-title">@Model.StockName (@Model.StockSymbol)</h2>
+
+                <h1><small>$</small> <span class="price">@Model.Price.ToString("N")</span></h1>
+
+            </div>
+        </div>
+
+
+    </div>
+    <h1>Company News:</h1>
+      
+    <br>
+    <a href="CompanyNews" class="button button-blue-back">Company News</a>
+</div>

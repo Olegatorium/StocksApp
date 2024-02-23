@@ -1,0 +1,37 @@
+﻿@using StocksApp.Models;
+@model List<CompanyNews>
+
+@{
+    ViewBag.Title = "Company News";
+}
+
+<div class="box trading-panel">
+
+    <div class="flex trading-panel-flex">
+        @foreach (var newsItem in Model)
+        {
+            <div id="stock-price-panel">
+                <div class="stock">
+                    <h2>Category:</h2>
+                    <h3><span class="price">@newsItem.Category</span></h3>
+
+                    <h2>HeadLine:</h2>
+                    <h3><span class="price">@newsItem.HeadLine</span></h3>
+
+                    <h2>Related:</h2>
+                    <h3><span class="price">@newsItem.Related</span></h3>
+
+                    <h2>Source:</h2>
+                    <h3><span class="price">@newsItem.Source</span></h3>
+
+                    <h2>Summary:</h2>
+                    <h3><span class="price">@newsItem.Summary</span></h3>
+                </div>
+            </div>
+        }
+    </div>
+
+    <h2>Return to the home page:</h2>
+    <br>
+    <a href="/" class="button button-blue-back">Home page</a>
+</div>
