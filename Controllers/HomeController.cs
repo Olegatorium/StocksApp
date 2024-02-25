@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using StocksApp.Models;
 using StocksApp.ServiceContracts;
+using StocksApp.Services;
 using System.Globalization;
 
 namespace StocksApp.Controllers
@@ -11,12 +12,14 @@ namespace StocksApp.Controllers
     {
         private readonly IFinnhubService _finnhubService;
         private readonly IOptions<TradingOptions> _tradingOptions;
+        private readonly IStocksService _stocksService;
 
 
-        public HomeController(IFinnhubService finnhubService, IOptions<TradingOptions> tradingOptions)
+        public HomeController(IFinnhubService finnhubService, IOptions<TradingOptions> tradingOptions, IStocksService stocksService)
         {
             _finnhubService = finnhubService;
             _tradingOptions = tradingOptions;
+            _stocksService = stocksService;
         }
 
 

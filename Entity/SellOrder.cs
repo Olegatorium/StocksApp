@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Entity
 {
-    class SellOrder
+    public class SellOrder
     {
         public Guid SellOrderID { get; set; }
 

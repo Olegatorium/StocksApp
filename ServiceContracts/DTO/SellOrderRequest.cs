@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +26,11 @@ namespace ServiceContracts.DTO
 
         [Range(1, 10000)]
         public double Price { get; set; }
+
+        public SellOrder ToSellOrder()
+        {
+            return new SellOrder() {StockSymbol = StockSymbol, StockName = StockName, DateAndTimeOfOrder = DateAndTimeOfOrder, Quantity = Quantity, Price = Price };
+        }
 
     }
 }

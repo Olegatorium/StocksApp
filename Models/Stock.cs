@@ -9,7 +9,5 @@
         public decimal Price { get; set; }
 
         public uint Quantity { get; set; }
-
-        public decimal tenDayAverageTradingVolume { get; set;}
     }
 }

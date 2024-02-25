@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Entity;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Metrics;
 
 namespace ServiceContracts.DTO
 {
@@ -18,5 +20,17 @@ namespace ServiceContracts.DTO
 
         [Range(1, 10000)]
         public double Price { get; set; }
+
+        public BuyOrder ToBuyOrder()
+        {
+            return new BuyOrder()
+            {
+                StockSymbol = StockSymbol,
+                StockName = StockName,
+                DateAndTimeOfOrder = DateAndTimeOfOrder,
+                Quantity = Quantity,
+                Price = Price
+            };
+        }
     }
 }
