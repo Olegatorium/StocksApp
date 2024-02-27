@@ -21,7 +21,7 @@ namespace ServiceContracts.DTO
 
     public static class SellOrderExtensions
     {
-        public static SellOrderResponse ToSellOrdernResponse(this SellOrder sellOrder)
+        public static SellOrderResponse ToSellOrderResponse(this SellOrder sellOrder)
         {
             return new SellOrderResponse()
             {
