@@ -17,6 +17,24 @@ namespace ServiceContracts.DTO
         public uint Quantity { get; set; }
         public double Price { get; set; }
         public double TradeAmount { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+
+            if (obj.GetType() != typeof(SellOrderResponse)) return false;
+
+            SellOrderResponse sellOrderResponse = (SellOrderResponse)obj;
+
+            return SellOrderID == sellOrderResponse.SellOrderID && StockSymbol == sellOrderResponse.StockSymbol &&
+                StockName == sellOrderResponse.StockName && DateAndTimeOfOrder == sellOrderResponse.DateAndTimeOfOrder && Quantity == sellOrderResponse.Quantity &&
+                Price == sellOrderResponse.Price && TradeAmount == sellOrderResponse.TradeAmount;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
     public static class SellOrderExtensions

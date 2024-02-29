@@ -394,5 +394,67 @@ namespace CRUDTests
             Assert.Contains(sellOrderResponse, buyOrders_list);
         }
         #endregion
+
+        #region GetSellOrders
+
+        //When you invoke this method, by default, the returned list should be empty
+        [Fact]
+        public async Task GetSellOrders_DefaultList()
+        {
+            List<SellOrderResponse> sellOrders_list = await _stocksService.GetSellOrders();
+
+            Assert.Empty(sellOrders_list);
+        }
+
+        [Fact]
+        public async Task  GetSellOrders_ProperDetails()
+        {
+            List<SellOrderRequest> sellOrderRequests = new List<SellOrderRequest>()
+            {
+
+            new SellOrderRequest
+            {
+                Quantity = 444,
+                DateAndTimeOfOrder = DateTime.Parse("2004-02-02"),
+                Price = 444,
+                StockName = "MSFT",
+                StockSymbol = "GST"
+            },
+
+            new SellOrderRequest
+            {
+                Quantity = 222,
+                DateAndTimeOfOrder = DateTime.Parse("2006-02-02"),
+                Price = 234,
+                StockName = "MSas",
+                StockSymbol = "Gdd"
+            },
+
+            new SellOrderRequest
+            {
+                Quantity = 2,
+                DateAndTimeOfOrder = DateTime.Parse("2012-02-02"),
+                Price = 1000,
+                StockName = "MeeT",
+                StockSymbol = "GfT"
+            }
+        };
+
+            List<SellOrderResponse> expectedSellOrderList = new List<SellOrderResponse>();
+
+            foreach (var item in sellOrderRequests)
+            {
+                expectedSellOrderList.Add(await _stocksService.CreateSellOrder(item));
+            }
+
+            List<SellOrderResponse> actualSellOrdersList = await _stocksService.GetSellOrders();
+
+            foreach (var item in expectedSellOrderList)
+            {
+                Assert.Contains(item, actualSellOrdersList);
+            }
+        }
+
+        #endregion
     }
 }
