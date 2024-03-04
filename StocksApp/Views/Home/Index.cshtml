@@ -1,27 +1,68 @@
-﻿@{
-    ViewBag.Title = "Home";
+﻿@model Stock
+
+@{
+    ViewBag.Title = "Trading";
+    ViewBag.CurrentUrl = "~/";
 }
 
+<div class="text-grey ml">
+    <span>Stocks</span>
+    <i class="fa-solid fa-caret-right"></i>
+    <span>@Model.StockName</span>
+</div>
 
+<form method="post">
+    <div class="box trading-panel">
+        <div class="flex trading-panel-flex">
+            <div id="stock-price-panel">
+                <div class="stock">
+                    <h2 class="stock-title">@Model.StockName (@Model.StockSymbol)</h2>
+                    <h3 class="stock-price"><small class="text-grey">$</small> <span class="price">@Model.Price.ToString("N")</span></h3>
+                    <h2>Company News:</h2>
+                    <br>
+                    <a href="CompanyNews" class="button button-blue-back">Company News</a>
+                </div>
+                <div class="date"></div>
+            </div>
 
-<div class="box trading-panel">
+            <div id="new-order-panel">
+                <div class="flex flex-direction-vertical">
+                    <h3 class="text-grey mb">New Order</h3>
+                    <label for="Quantity" class="mt">Quantity:</label>
+                    <div class="w-25">
+                        <input type="number" name="Quantity" id="Quantity" value="@Model.Quantity" min="1" max="100000" placeholder="Quantity" required="required" class="form-input mb" autofocus="autofocus" />
+                    </div>
+                </div>
 
-    <div class="flex trading-panel-flex">
+                <div class="button-panel">
+                    <button type="submit" formaction="/SellOrder" class="button button-red-back trading-button sell-button">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        <span>Sell</span>
+                    </button>
 
-        <div id="stock-price-panel">
+                    <button type="submit" formaction="/BuyOrder" class="button button-green-back trading-button buy-button">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <span>Buy</span>
+                    </button>
 
-            <div class="stock">
-               <h2 class="stock-title">@Model.StockName (@Model.StockSymbol)</h2>
-
-                <h1><small>$</small> <span class="price">@Model.Price.ToString("N")</span></h1>
-
+                    @if (ViewBag.Errors != null)
+                    {
+                        <div class="text-red mt">
+                            <ul>
+                                @foreach (string error in ViewBag.Errors)
+                                {
+                                    <li class="ml">@error</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-
-
     </div>
-    <h1>Company News:</h1>
-      
-    <br>
-    <a href="CompanyNews" class="button button-blue-back">Company News</a>
-</div>
+
+    <input type="hidden" name="StockSymbol" id="StockSymbol" value="@Model.StockSymbol" />
+    <input type="hidden" name="StockName" id="StockName" value="@Model.StockName" />
+    <input type="hidden" name="Price" id="price" value="@Model.Price" />
+    <input type="hidden" id="FinnhubToken" value="@ViewBag.FinnhubToken" />
+</form>

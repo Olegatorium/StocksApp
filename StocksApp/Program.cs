@@ -4,11 +4,20 @@ using StocksApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Services
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<TradingOptions>(builder.Configuration.GetSection("TradingOptions"));
+builder.Services.AddSingleton<IStocksService, StocksService>();
+builder.Services.AddSingleton<IFinnhubService, FinnhubService>();
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<IFinnhubService, FinnhubService>();
-builder.Services.Configure<TradingOptions>(builder.Configuration.GetSection(nameof(TradingOptions))); //add IOptions<TradingOptions> as a service
+
+
 var app = builder.Build();
+
+if (builder.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
 
 
 app.UseStaticFiles();

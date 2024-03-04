@@ -35,6 +35,11 @@ namespace ServiceContracts.DTO
         {
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return $"Sell Order ID: {SellOrderID}, Stock Symbol: {StockSymbol}, Stock Name: {StockName}, Date and Time of Sell Order: {DateAndTimeOfOrder.ToString("dd MMM yyyy hh:mm ss tt")}, Quantity: {Quantity}, Sell Price: {Price}, Trade Amount: {TradeAmount}";
+        }
     }
 
     public static class SellOrderExtensions
@@ -44,7 +49,8 @@ namespace ServiceContracts.DTO
             return new SellOrderResponse()
             {
                 SellOrderID = sellOrder.SellOrderID, StockSymbol = sellOrder.StockSymbol, StockName = sellOrder.StockName, 
-                DateAndTimeOfOrder = sellOrder.DateAndTimeOfOrder, Quantity = sellOrder.Quantity, Price = sellOrder.Price
+                DateAndTimeOfOrder = sellOrder.DateAndTimeOfOrder, Quantity = sellOrder.Quantity, Price = sellOrder.Price,
+                TradeAmount = sellOrder.Price * sellOrder.Quantity
             };
         }
     }

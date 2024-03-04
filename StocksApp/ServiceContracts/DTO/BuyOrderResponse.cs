@@ -47,6 +47,11 @@ namespace ServiceContracts.DTO
         {
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return $"Buy Order ID: {BuyOrderID}, Stock Symbol: {StockSymbol}, Stock Name: {StockName}, Date and Time of Buy Order: {DateAndTimeOfOrder.ToString("dd MMM yyyy hh:mm ss tt")}, Quantity: {Quantity}, Buy Price: {Price}, Trade Amount: {TradeAmount}";
+        }
     }
 
     public static class BuyOrderExtension
@@ -54,7 +59,9 @@ namespace ServiceContracts.DTO
         public static BuyOrderResponse ToBuyOrderResponse(this BuyOrder buyOrder)
         {
             return new BuyOrderResponse() { BuyOrderID = buyOrder.BuyOrderID, StockSymbol = buyOrder.StockSymbol, StockName = buyOrder.StockName, 
-                DateAndTimeOfOrder = buyOrder.DateAndTimeOfOrder, Price = buyOrder.Price, Quantity = buyOrder.Quantity};
+                DateAndTimeOfOrder = buyOrder.DateAndTimeOfOrder, Price = buyOrder.Price, Quantity = buyOrder.Quantity,
+                TradeAmount = buyOrder.Price * buyOrder.Quantity
+            };
         }
     }
 }
