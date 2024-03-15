@@ -1,3 +1,5 @@
+using Entity;
+using Microsoft.EntityFrameworkCore;
 using ServiceContracts.DTO;
 using StocksApp.ServiceContracts;
 using StocksApp.Services;
@@ -12,7 +14,7 @@ namespace CRUDTests
 
         public StocksServiceTest(ITestOutputHelper testOutputHelper)
         {
-            _stocksService = new StocksService();
+            _stocksService = new StocksService(new StockMarketDbContext(new DbContextOptionsBuilder<StockMarketDbContext>().Options));
             _testOutputHelper = testOutputHelper;
         }
 

@@ -1,0 +1,25 @@
+[{
+  "SellOrderID": "4a6f9c2d-1ef4-4964-9f90-3e19ee55e68d",
+  "StockSymbol": "AMZN",
+  "StockName": "Amazon.com Inc.",
+  "DateAndTimeOfOrder": "2024-03-15T09:00:00",
+  "Quantity": 75,
+  "Price": 3500.25
+},
+{
+  "SellOrderID": "d75e6b25-b334-4f20-899d-7f8cb91e489c",
+  "StockSymbol": "TSLA",
+  "StockName": "Tesla Inc.",
+  "DateAndTimeOfOrder": "2024-03-15T12:30:00",
+  "Quantity": 50,
+  "Price": 900.50
+},
+{
+  "SellOrderID": "f381d1f7-69cb-437b-9a39-53c778f98e8d",
+  "StockSymbol": "NVDA",
+  "StockName": "NVIDIA Corporation",
+  "DateAndTimeOfOrder": "2024-03-15T15:45:00",
+  "Quantity": 100,
+  "Price": 575.75
+}
+]

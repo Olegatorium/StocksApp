@@ -1,0 +1,26 @@
+[
+{
+  "BuyOrderID": "ec26e4cb-0dfb-4d88-88e2-4b540d4080c9",
+  "StockSymbol": "AAPL",
+  "StockName": "Apple Inc.",
+  "DateAndTimeOfOrder": "2024-03-15T10:30:00",
+  "Quantity": 50,
+  "Price": 152.75
+},
+{
+  "BuyOrderID": "91d43927-f0db-42d1-b29e-665d191ef14f",
+  "StockSymbol": "MSFT",
+  "StockName": "Microsoft Corporation",
+  "DateAndTimeOfOrder": "2024-03-15T11:45:00",
+  "Quantity": 100,
+  "Price": 289.10
+},
+{
+  "BuyOrderID": "bfbd9c84-509d-4d43-ba5e-48e5fd6e76b4",
+  "StockSymbol": "GOOGL",
+  "StockName": "Alphabet Inc.",
+  "DateAndTimeOfOrder": "2024-03-15T13:15:00",
+  "Quantity": 25,
+  "Price": 2650.50
+}
+]
