@@ -1,4 +1,4 @@
-﻿@model Stock
+﻿@model List<Stock>
 
 @{
     ViewBag.Title = "Trading";
@@ -8,16 +8,17 @@
 <div class="text-grey ml">
     <span>Stocks</span>
     <i class="fa-solid fa-caret-right"></i>
-    <span>@Model.StockName</span>
 </div>
 
+@foreach (var stock in Model)
+{
 <form method="post">
     <div class="box trading-panel">
         <div class="flex trading-panel-flex">
             <div id="stock-price-panel">
                 <div class="stock">
-                    <h2 class="stock-title">@Model.StockName (@Model.StockSymbol)</h2>
-                    <h3 class="stock-price"><small class="text-grey">$</small> <span class="price">@Model.Price.ToString("N")</span></h3>
+                        <h2 class="stock-title">@stock.StockName (@stock.StockSymbol)</h2>
+                        <h3 class="stock-price"><small class="text-grey">$</small> <span class="price">@stock.Price.ToString("N")</span></h3>
                     <h2>Company News:</h2>
                     <br>
                     <a href="CompanyNews" class="button button-blue-back">Company News</a>
@@ -30,7 +31,7 @@
                     <h3 class="text-grey mb">New Order</h3>
                     <label for="Quantity" class="mt">Quantity:</label>
                     <div class="w-25">
-                        <input type="number" name="Quantity" id="Quantity" value="@Model.Quantity" min="1" max="100000" placeholder="Quantity" required="required" class="form-input mb" autofocus="autofocus" />
+                            <input type="number" name="Quantity" id="Quantity" value="@stock.Quantity" min="1" max="100000" placeholder="Quantity" required="required" class="form-input mb" autofocus="autofocus" />
                     </div>
                 </div>
 
@@ -61,8 +62,9 @@
         </div>
     </div>
 
-    <input type="hidden" name="StockSymbol" id="StockSymbol" value="@Model.StockSymbol" />
-    <input type="hidden" name="StockName" id="StockName" value="@Model.StockName" />
-    <input type="hidden" name="Price" id="price" value="@Model.Price" />
+        <input type="hidden" name="StockSymbol" id="StockSymbol" value="@stock.StockSymbol" />
+        <input type="hidden" name="StockName" id="StockName" value="@stock.StockName" />
+    <input type="hidden" name="Price" id="price" value="@stock.Price" />
     <input type="hidden" id="FinnhubToken" value="@ViewBag.FinnhubToken" />
 </form>
+}

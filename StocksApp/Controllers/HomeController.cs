@@ -100,22 +100,36 @@ namespace StocksApp.Controllers
                 _tradingOptions.Value.DefaultStockSymbol = "MSFT";
             }
 
-            Dictionary<string, object>? responseStockPriceQuote = await
+            Dictionary<string, object>? responseStockPriceQuoteMSFT = await
                 _finnhubService.GetStockInformation(_tradingOptions.Value.DefaultStockSymbol, "StockPriceQuote");
 
-            Dictionary<string, object>? responseCompanyName = await
+            Dictionary<string, object>? responseCompanyNameMSFT = await
                 _finnhubService.GetStockInformation(_tradingOptions.Value.DefaultStockSymbol, "CompanyProfile");
 
+            Dictionary<string, object>? responseStockPriceQuoteAAPL = await
+               _finnhubService.GetStockInformation("AAPL", "StockPriceQuote");
 
-            Stock stock = new Stock()
+            Dictionary<string, object>? responseCompanyNameAAPL = await
+                _finnhubService.GetStockInformation("AAPL", "CompanyProfile");
+
+          
+            Stock stockMSFT = new Stock()
             {
                 StockSymbol = _tradingOptions.Value.DefaultStockSymbol,
-                Price = Convert.ToDecimal(responseStockPriceQuote["c"].ToString(), CultureInfo.InvariantCulture),
-                StockName = responseCompanyName["name"].ToString(),
+                Price = Convert.ToDecimal(responseStockPriceQuoteMSFT["c"].ToString(), CultureInfo.InvariantCulture),
+                StockName = responseCompanyNameMSFT["name"].ToString(),
             };
 
+            Stock stockAAPL = new Stock()
+            {
+                StockSymbol = responseCompanyNameAAPL["ticker"].ToString(),
+                Price = Convert.ToDecimal(responseStockPriceQuoteAAPL["c"].ToString(), CultureInfo.InvariantCulture),
+                StockName = responseCompanyNameAAPL["name"].ToString(),
+            };
 
-            return View(stock);
+            List<Stock> stockList = new List<Stock>() { stockMSFT, stockAAPL };
+
+            return View(stockList);
         }
 
         [Route("CompanyNews")]
