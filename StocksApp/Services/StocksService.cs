@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using ServiceContracts.DTO;
 using Services.Helpers;
+using StocksApp.Models;
 using StocksApp.ServiceContracts;
 using StocksApp.ServiceContracts.DTO;
+using System.Globalization;
 
 namespace StocksApp.Services
 {

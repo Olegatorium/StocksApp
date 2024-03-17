@@ -91,6 +91,7 @@ namespace StocksApp.Controllers
             return RedirectToAction("Orders", "Home");
         }
 
+       
 
         [Route("/")]
         public async Task<IActionResult> Index()
@@ -100,40 +101,13 @@ namespace StocksApp.Controllers
                 _tradingOptions.Value.DefaultStockSymbol = "MSFT";
             }
 
-            Dictionary<string, object>? responseStockPriceQuoteMSFT = await
-                _finnhubService.GetStockInformation(_tradingOptions.Value.DefaultStockSymbol, "StockPriceQuote");
-
-            Dictionary<string, object>? responseCompanyNameMSFT = await
-                _finnhubService.GetStockInformation(_tradingOptions.Value.DefaultStockSymbol, "CompanyProfile");
-
-            Dictionary<string, object>? responseStockPriceQuoteAAPL = await
-               _finnhubService.GetStockInformation("AAPL", "StockPriceQuote");
-
-            Dictionary<string, object>? responseCompanyNameAAPL = await
-                _finnhubService.GetStockInformation("AAPL", "CompanyProfile");
-
-          
-            Stock stockMSFT = new Stock()
-            {
-                StockSymbol = _tradingOptions.Value.DefaultStockSymbol,
-                Price = Convert.ToDecimal(responseStockPriceQuoteMSFT["c"].ToString(), CultureInfo.InvariantCulture),
-                StockName = responseCompanyNameMSFT["name"].ToString(),
-            };
-
-            Stock stockAAPL = new Stock()
-            {
-                StockSymbol = responseCompanyNameAAPL["ticker"].ToString(),
-                Price = Convert.ToDecimal(responseStockPriceQuoteAAPL["c"].ToString(), CultureInfo.InvariantCulture),
-                StockName = responseCompanyNameAAPL["name"].ToString(),
-            };
-
-            List<Stock> stockList = new List<Stock>() { stockMSFT, stockAAPL };
+            List<Stock> stockList = await _finnhubService.GetSymbolsInfo(_tradingOptions);
 
             return View(stockList);
         }
 
         [Route("CompanyNews")]
-        public async Task<IActionResult> СompanyNews()
+        public async Task<IActionResult> СompanyNews([FromQuery] string stockSymbol)
         {
             if (_tradingOptions.Value.DefaultStockSymbol == null)
             {
@@ -142,7 +116,7 @@ namespace StocksApp.Controllers
 
 
            var responseСompanyNews = await
-                _finnhubService.GetCompanyNewsInformation(_tradingOptions.Value.DefaultStockSymbol);
+                _finnhubService.GetCompanyNewsInformation(stockSymbol);
 
             if (responseСompanyNews == null)
             {
