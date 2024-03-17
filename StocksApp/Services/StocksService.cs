@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ServiceContracts.DTO;
 using Services.Helpers;
 using StocksApp.ServiceContracts;
+using StocksApp.ServiceContracts.DTO;
 
 namespace StocksApp.Services
 {
@@ -30,6 +31,13 @@ namespace StocksApp.Services
             await _db.SaveChangesAsync();
 
             return buyOrder.ToBuyOrderResponse();
+        }
+        public async Task<List<OrdersResponse>> GetAllOrders()
+        {
+            var buyOrderResponses = await _db.BuyOrders.OrderByDescending(x => x.DateAndTimeOfOrder).Select(x => x.ToOrderResponseFromBuyOrder()).ToListAsync();
+            var sellOrderResponses = await _db.SellOrders.OrderByDescending(x => x.DateAndTimeOfOrder).Select(x => x.ToOrderResponseFromSellOrder()).ToListAsync();
+
+            return buyOrderResponses.Concat(sellOrderResponses).ToList();
         }
 
         public async Task<List<BuyOrderResponse>> GetBuyOrders()

@@ -157,45 +157,7 @@ namespace StocksApp.Controllers
         [Route("[action]")]
         public async Task<IActionResult> OrdersPDF()
         {
-            List<BuyOrderResponse> buyOrders = await _stocksService.GetBuyOrders();
-
-            List<SellOrderResponse> sellOrders = await _stocksService.GetSellOrders();
-
-            List<OrdersResponse> listOrders = new List<OrdersResponse>();
-
-            foreach (var item in buyOrders)
-            {
-                OrdersResponse ordersResponse = new OrdersResponse();
-
-                ordersResponse.BuyOrderID = item.BuyOrderID;
-                ordersResponse.Quantity = item.Quantity;
-                ordersResponse.Price = item.Price;
-                ordersResponse.DateAndTimeOfOrder = item.DateAndTimeOfOrder;
-                ordersResponse.StockName = item.StockName;
-                ordersResponse.StockSymbol = item.StockSymbol;
-                ordersResponse.TypeOfOrder = "Buy Order";
-                ordersResponse.TradeAmount = item.TradeAmount;
-
-                listOrders.Add(ordersResponse);
-               
-            }
-
-            foreach (var item in sellOrders)
-            {
-
-                OrdersResponse ordersResponse = new OrdersResponse();
-
-                ordersResponse.BuyOrderID = item.SellOrderID;
-                ordersResponse.Quantity = item.Quantity;
-                ordersResponse.Price = item.Price;
-                ordersResponse.DateAndTimeOfOrder = item.DateAndTimeOfOrder;
-                ordersResponse.StockName = item.StockName;
-                ordersResponse.StockSymbol = item.StockSymbol;
-                ordersResponse.TypeOfOrder = "Sell Order";
-                ordersResponse.TradeAmount = item.TradeAmount;
-
-                listOrders.Add(ordersResponse);
-            }
+            List<OrdersResponse> listOrders = await _stocksService.GetAllOrders();
 
             return new ViewAsPdf("OrdersPDF", listOrders, ViewData)
             {

@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Entity;
+using ServiceContracts.DTO;
+using StocksApp.ServiceContracts.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace StocksApp.ServiceContracts.DTO
 {
@@ -19,5 +22,39 @@ namespace StocksApp.ServiceContracts.DTO
         public string? TypeOfOrder { get; set; }
 
         public double TradeAmount { get; set; }
+
+    }
+
+    public static class OrdersExtension
+    {
+        public static OrdersResponse ToOrderResponseFromBuyOrder(this BuyOrder buyOrder)
+        {
+            return new OrdersResponse()
+            {
+                BuyOrderID = buyOrder.BuyOrderID,
+                StockSymbol = buyOrder.StockSymbol,
+                StockName = buyOrder.StockName,
+                DateAndTimeOfOrder = buyOrder.DateAndTimeOfOrder,
+                Price = buyOrder.Price,
+                Quantity = buyOrder.Quantity,
+                TradeAmount = buyOrder.Price * buyOrder.Quantity,
+                TypeOfOrder = OrderOptions.BuyOrder.ToFormattedOrderOptionString()
+            };
+        }
+
+        public static OrdersResponse ToOrderResponseFromSellOrder(this SellOrder sellOrder)
+        {
+            return new OrdersResponse()
+            {
+                BuyOrderID = sellOrder.SellOrderID,
+                StockSymbol = sellOrder.StockSymbol,
+                StockName = sellOrder.StockName,
+                DateAndTimeOfOrder = sellOrder.DateAndTimeOfOrder,
+                Price = sellOrder.Price,
+                Quantity = sellOrder.Quantity,
+                TradeAmount = sellOrder.Price * sellOrder.Quantity,
+                TypeOfOrder = OrderOptions.SellOrder.ToFormattedOrderOptionString()
+            };
+        }
     }
 }

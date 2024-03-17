@@ -1,4 +1,5 @@
 ﻿using ServiceContracts.DTO;
+using StocksApp.ServiceContracts.DTO;
 
 namespace StocksApp.ServiceContracts
 {
@@ -11,5 +12,7 @@ namespace StocksApp.ServiceContracts
         Task<List<BuyOrderResponse>> GetBuyOrders();
 
         Task<List<SellOrderResponse>> GetSellOrders();
+        Task<List<OrdersResponse>> GetAllOrders();
+
     }
 }
