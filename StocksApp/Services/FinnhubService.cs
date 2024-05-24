@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using StocksApp.Models;
 using StocksApp.ServiceContracts;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
+using static System.Net.WebRequestMethods;
 
 namespace StocksApp.Services
 {
@@ -15,6 +19,70 @@ namespace StocksApp.Services
         {
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+        }
+
+        public async Task<List<StockShortInfo>> ConvertToStockList(List<Dictionary<string, string>>? stocks)
+        {
+            var stockList = new List<StockShortInfo>();
+
+            foreach (var stockDict in stocks)
+            {
+
+                var stock = new StockShortInfo
+                {
+                    StockSymbol = stockDict.ContainsKey("symbol") ? stockDict["symbol"].ToString() : null,
+                    StockName = stockDict.ContainsKey("description") ? stockDict["description"].ToString() : null,
+                };
+
+                stockList.Add(stock);
+            }
+
+            return stockList;
+        }
+
+        public async Task<List<Dictionary<string, string>>?> GetStocks()
+        {
+            List<Dictionary<string, string>>? responseStocks = new List<Dictionary<string, string>>();
+
+            using (HttpClient httpClient = _httpClientFactory.CreateClient())
+            {
+                HttpRequestMessage httpRequestMessage = new HttpRequestMessage()
+                {
+                    RequestUri = new Uri($"https://finnhub.io/api/v1/stock/symbol?exchange=US&token={_configuration["FinnhubToken"]}"),
+                    Method = HttpMethod.Get
+                };
+
+                HttpResponseMessage httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
+
+                Stream stream = httpResponseMessage.Content.ReadAsStream();
+
+                StreamReader streamReader = new StreamReader(stream);
+
+                string responseString = streamReader.ReadToEnd();
+
+                responseStocks = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(responseString);
+
+                if (responseStocks == null)
+                    throw new InvalidOperationException("No response from finnhub server");
+
+                //Price = Convert.ToDecimal(responseStockPriceQuoteMSFT["c"].ToString(), CultureInfo.InvariantCulture),
+
+                responseStocks = responseStocks
+                 .Take(25)
+                 .ToList();
+
+                return responseStocks;
+            }
+        }
+
+        public async Task<Dictionary<string, object>?> SearchStocks(string stockSymbolToSearch)
+        {
+            // SearchStocks: https://finnhub.io/api/v1/search?q={stockNameToSearch}&token={token}
+
+
+            List<Stock> stockList = new List<Stock>() { };
+
+            return null;
         }
 
         public async Task<List<Stock>> GetSymbolsInfo(IOptions<TradingOptions> tradingOptions)

@@ -92,7 +92,6 @@ namespace StocksApp.Controllers
         }
 
        
-
         [Route("/")]
         public async Task<IActionResult> Index()
         {

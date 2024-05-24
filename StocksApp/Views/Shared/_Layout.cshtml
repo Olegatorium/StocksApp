@@ -36,22 +36,31 @@
 
             <div class="navbar mb">
                 <ul>
-                    @if (ViewBag.CurrentUrl == "/")
+                    @if (ViewBag.CurrentUrl == "~/Explore")
                     {
-                        <li><a href="/" class="nav-active">Trade</a></li>
+                        <li><a asp-controller="Stocks" asp-action="Explore" class="nav-active">Explore</a></li>
                     }
                     else
                     {
-                        <li><a href="/">Trade</a></li>
+                        <li><a asp-controller="Stocks" asp-action="Explore">Explore</a></li>
                     }
 
-                    @if (ViewBag.CurrentUrl == "/Orders")
+                    @if (ViewBag.CurrentUrl == "~/Trade/Index")
                     {
-                        <li><a href="/Orders" class="nav-active">Orders</a></li>
+                        <li><a asp-controller="Home" asp-action="Index" class="nav-active">Trade</a></li>
                     }
                     else
                     {
-                        <li><a href="/Orders">Orders</a></li>
+                        <li><a asp-controller="Home" asp-action="Index">Trade</a></li>
+                    }
+
+                    @if (ViewBag.CurrentUrl == "~/Trade/Orders")
+                    {
+                        <li><a asp-controller="Home" asp-action="Orders" class="nav-active">Orders</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Home" asp-action="Orders">Orders</a></li>
                     }
                 </ul>
             </div>
@@ -60,5 +69,7 @@
         </div>
 
     </div>
+
+    @await RenderSectionAsync("scripts", required: false)
 </body>
 </html>
