@@ -1,8 +1,11 @@
+using AutoFixture;
 using Entity;
+using EntityFrameworkCoreMock;
 using Microsoft.EntityFrameworkCore;
 using ServiceContracts.DTO;
 using StocksApp.ServiceContracts;
 using StocksApp.Services;
+using System.Diagnostics.Metrics;
 using Xunit.Abstractions;
 
 namespace CRUDTests
@@ -11,11 +14,28 @@ namespace CRUDTests
     {
         private readonly IStocksService _stocksService;
         private readonly ITestOutputHelper _testOutputHelper;
+        private readonly IFixture _fixture;
 
         public StocksServiceTest(ITestOutputHelper testOutputHelper)
         {
-            _stocksService = new StocksService(new StockMarketDbContext(new DbContextOptionsBuilder<StockMarketDbContext>().Options));
             _testOutputHelper = testOutputHelper;
+
+            _fixture = new Fixture();
+
+            ///
+
+            var buyOrdersInitialData = new List<BuyOrder>();
+            var sellOrdersInitialData = new List<SellOrder>();
+
+            DbContextMock<StockMarketDbContext> dbContextMock = new DbContextMock<StockMarketDbContext>(
+                 new DbContextOptionsBuilder<StockMarketDbContext>().Options);
+
+            StockMarketDbContext dbContext = dbContextMock.Object;
+            dbContextMock.CreateDbSetMock(temp => temp.BuyOrders, buyOrdersInitialData);
+            dbContextMock.CreateDbSetMock(temp => temp.SellOrders, sellOrdersInitialData);
+
+
+            _stocksService = new StocksService(dbContext);         
         }
 
         #region CreateBuyOrder
