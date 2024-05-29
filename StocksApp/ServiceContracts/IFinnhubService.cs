@@ -14,7 +14,5 @@ namespace StocksApp.ServiceContracts
          Task<List<Dictionary<string, string>>?> GetStocks();
 
          Task<Dictionary<string, object>?> SearchStocks(string stockSymbolToSearch);
-
-         Task<List<StockShortInfo>> ConvertToStockList(List<Dictionary<string, string>>? stocks);
     }
 }

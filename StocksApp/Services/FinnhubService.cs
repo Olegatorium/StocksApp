@@ -21,25 +21,6 @@ namespace StocksApp.Services
             _configuration = configuration;
         }
 
-        public async Task<List<StockShortInfo>> ConvertToStockList(List<Dictionary<string, string>>? stocks)
-        {
-            var stockList = new List<StockShortInfo>();
-
-            foreach (var stockDict in stocks)
-            {
-
-                var stock = new StockShortInfo
-                {
-                    StockSymbol = stockDict.ContainsKey("symbol") ? stockDict["symbol"].ToString() : null,
-                    StockName = stockDict.ContainsKey("description") ? stockDict["description"].ToString() : null,
-                };
-
-                stockList.Add(stock);
-            }
-
-            return stockList;
-        }
-
         public async Task<List<Dictionary<string, string>>?> GetStocks()
         {
             List<Dictionary<string, string>>? responseStocks = new List<Dictionary<string, string>>();
@@ -64,12 +45,6 @@ namespace StocksApp.Services
 
                 if (responseStocks == null)
                     throw new InvalidOperationException("No response from finnhub server");
-
-                //Price = Convert.ToDecimal(responseStockPriceQuoteMSFT["c"].ToString(), CultureInfo.InvariantCulture),
-
-                responseStocks = responseStocks
-                 .Take(25)
-                 .ToList();
 
                 return responseStocks;
             }
