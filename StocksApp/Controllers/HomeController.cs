@@ -93,6 +93,7 @@ namespace StocksApp.Controllers
 
        
         [Route("/")]
+        [Route("[action]")]
         public async Task<IActionResult> Index()
         {
             if (_tradingOptions.Value.DefaultStockSymbol == null)
@@ -105,7 +106,7 @@ namespace StocksApp.Controllers
             return View(stockList);
         }
 
-        [Route("CompanyNews")]
+        [Route("[action]")]
         public async Task<IActionResult> СompanyNews([FromQuery] string stockSymbol)
         {
             if (_tradingOptions.Value.DefaultStockSymbol == null)

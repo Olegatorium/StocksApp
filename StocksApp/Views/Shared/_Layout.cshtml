@@ -1,5 +1,4 @@
-﻿﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
@@ -36,7 +35,7 @@
 
             <div class="navbar mb">
                 <ul>
-                    @if (ViewBag.CurrentUrl == "~/Explore")
+                    @if (ViewBag.CurrentUrl == "/Stocks/Explore")
                     {
                         <li><a asp-controller="Stocks" asp-action="Explore" class="nav-active">Explore</a></li>
                     }
@@ -45,7 +44,7 @@
                         <li><a asp-controller="Stocks" asp-action="Explore">Explore</a></li>
                     }
 
-                    @if (ViewBag.CurrentUrl == "~/Trade/Index")
+                    @if (ViewBag.CurrentUrl == "/")
                     {
                         <li><a asp-controller="Home" asp-action="Index" class="nav-active">Trade</a></li>
                     }
@@ -54,7 +53,7 @@
                         <li><a asp-controller="Home" asp-action="Index">Trade</a></li>
                     }
 
-                    @if (ViewBag.CurrentUrl == "~/Trade/Orders")
+                    @if (ViewBag.CurrentUrl == "/Orders")
                     {
                         <li><a asp-controller="Home" asp-action="Orders" class="nav-active">Orders</a></li>
                     }

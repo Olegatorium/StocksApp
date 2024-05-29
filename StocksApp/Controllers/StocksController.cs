@@ -20,8 +20,8 @@ namespace StocksApp.Controllers
         }
 
 
-        [HttpGet]
         [Route("[action]")]
+        [Route("[action]/{stock?}")]
         public async Task<IActionResult> Explore(string? stock, bool showAll = false)
         {
             List<Dictionary<string, string>>? stocks = await _finnhubService.GetStocks();
