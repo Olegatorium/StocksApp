@@ -26,7 +26,29 @@ namespace StocksApp.Controllers
             _stocksService = stocksService;
         }
 
-        [Route("Orders")]
+        [Route("[action]/{stock?}")]
+        public async Task<IActionResult> TradeNow(string? stock) 
+        {
+            if (stock == null)
+            {
+                stock = "MSFT";
+            }
+
+            var foundStockCompanyName = await _finnhubService.GetStockInformation(stock, "CompanyProfile");
+
+            var foundStockPriceQuote = await _finnhubService.GetStockInformation(stock, "StockPriceQuote");
+
+            Stock stockInfo = new Stock()
+            {
+                StockSymbol = foundStockCompanyName["ticker"].ToString(),
+                Price = Convert.ToDecimal(foundStockPriceQuote["c"].ToString(), CultureInfo.InvariantCulture),
+                StockName = foundStockCompanyName["name"].ToString(),
+            };
+
+            return View(stockInfo);
+        }
+
+        [Route("[action]")]
         public async Task<IActionResult> Orders() 
         {
             //invoke service methods
@@ -90,7 +112,6 @@ namespace StocksApp.Controllers
 
             return RedirectToAction("Orders", "Home");
         }
-
        
         [Route("/")]
         [Route("[action]")]
@@ -107,7 +128,7 @@ namespace StocksApp.Controllers
         }
 
         [Route("[action]")]
-        public async Task<IActionResult> СompanyNews([FromQuery] string stockSymbol)
+        public async Task<IActionResult> CompanyNews([FromQuery] string stockSymbol)
         {
             if (_tradingOptions.Value.DefaultStockSymbol == null)
             {
@@ -138,8 +159,7 @@ namespace StocksApp.Controllers
                 });
             }
 
-            return View(companyNews);
-            
+            return View(companyNews);           
         }
 
         [Route("[action]")]

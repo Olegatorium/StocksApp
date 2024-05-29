@@ -684,10 +684,9 @@ a.button-link:link, a.button-link:visited
         max-width: 65%;
     }
 
-    #new-order-panel
-    {
+    #new-order-panel {
         padding-left: 90px;
-        padding-top: 220px;
+        padding-top: 20px;
         flex: 1 0 auto;
     }
 

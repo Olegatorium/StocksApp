@@ -30,9 +30,18 @@
                     <h4 class="text-grey mb">Stocks</h4>
                 </div>
 
-                <div class="flex-1 text-right">
-                    <a href="/Stocks/Explore?showAll=true" class="mr">Show all stocks</a>
-                </div>
+                @if (!Context.Request.Query.ContainsKey("showAll"))
+                {
+                    <div class="flex-1 text-right">
+                        <a href="/Stocks/Explore?showAll=true" class="mr">Show all stocks</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="flex-1 text-right">
+                        <a href="/Stocks/Explore" class="mr">Show TOP 25</a>
+                    </div>
+                }
             </div>
 
 
