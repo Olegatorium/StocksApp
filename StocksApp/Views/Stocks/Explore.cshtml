@@ -1,4 +1,5 @@
 ﻿@model List<StockShortInfo>
+
 @{
     ViewBag.Title = "Explore";
     ViewBag.CurrentUrl = "~/Explore";
@@ -66,10 +67,12 @@
 
     </div>
 
-    <div class="flex-1" id="stock-details">
-        @if (ViewBag.stock != null)
-        {
-            <vc:selected-stock stock-symbol="@ViewBag.stock"></vc:selected-stock>
-        }
-    </div>
+ <div class="flex-1" id="stock-details">
+  @if (ViewBag.stock != null)
+  {
+   <vc:selected-stock stock-symbol="@ViewBag.stock"></vc:selected-stock>
+  }
+ </div>
 </div>
+
+

@@ -44,7 +44,7 @@ namespace StocksApp.Services
 
         public async Task<List<BuyOrderResponse>> GetBuyOrders()
         {
-            return await _db.BuyOrders.Select(x => x.ToBuyOrderResponse()).ToListAsync();
+            return await _db.BuyOrders.OrderByDescending(x => x.DateAndTimeOfOrder).Select(x => x.ToBuyOrderResponse()).ToListAsync();
         }
 
         public async Task<SellOrderResponse> CreateSellOrder(SellOrderRequest? sellOrderRequest)
@@ -66,7 +66,7 @@ namespace StocksApp.Services
 
         public async Task<List<SellOrderResponse>> GetSellOrders()
         {
-            return await _db.SellOrders.Select(x => x.ToSellOrderResponse()).ToListAsync();
+            return await _db.SellOrders.OrderByDescending(x => x.DateAndTimeOfOrder).Select(x => x.ToSellOrderResponse()).ToListAsync();
         }
     }
 }

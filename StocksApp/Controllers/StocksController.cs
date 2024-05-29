@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using StocksApp.Models;
 using StocksApp.ServiceContracts;
 
 namespace StocksApp.Controllers
@@ -21,11 +22,13 @@ namespace StocksApp.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> Explore()
+        public async Task<IActionResult> Explore(string? stock, bool showAll = false)
         {
             List<Dictionary<string, string>>? stocks = await _finnhubService.GetStocks();
 
             var stocksShortInfo = await _finnhubService.ConvertToStockList(stocks);
+
+            ViewBag.stock = stock;
 
             return View(stocksShortInfo);
         }
