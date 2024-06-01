@@ -1,0 +1,16 @@
+1. Clone the repository to your PC
+2. Update the database using migrations
+3. Add user secrets for the connection to the Finnhub API:
+{
+  "FinnhubToken": "clp3089r01qn0q5tegq0clp3089r01qn0q5tegqg"
+}
+
+Use the Package Manager Console for the following purposes::
+
+Summary:
+. Update the database using migrations:
+Update-Database
+
+. Add user secrets for the connection to the Finnhub API:
+dotnet user-secrets init
+dotnet user-secrets set "FinnhubToken" "clp3089r01qn0q5tegq0clp3089r01qn0q5tegqg"

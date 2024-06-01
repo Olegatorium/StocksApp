@@ -20,11 +20,14 @@
                 <div class="stock">
                     <h1 class="stock-title">@Model.StockName (@Model.StockSymbol)</h1>
                     <h2 class="stock-price"><small class="text-grey">$</small> <span class="price">@Model.Price.ToString("N")</span></h2>
+
+                    <h2>Company News:</h2>
+                    <br>
+
+                    <a href="/CompanyNews?StockSymbol=@Model.StockSymbol" class="button button-blue-back">Company News</a>
+
                 </div>
 
-                <div class="chart mt">
-                    <canvas id="stock-chart" width="400px" height="150px"></canvas>
-                </div>
 
                 <div class="date"></div>
             </div>
